@@ -1,0 +1,55 @@
+<script>
+
+function computerPlay() {
+  let x = Math.random();
+
+  if (x <= 0.33) {
+    return "Rock".toUpperCase();
+  } 
+
+  else if (x <= 0.66 && x > 0.33) {
+    return "Paper".toUpperCase();
+  }
+
+  else {
+    return "Scissors".toUpperCase();
+  }
+}
+
+let playerScore = 0;
+let computerScore = 0;
+
+
+
+function game() {
+  let playerSelection = prompt("Enter your selection").toUpperCase();
+  let computerSelection = computerPlay();
+
+
+  function gameRules() {    
+    if ((playerSelection === 'ROCK') && (computerSelection === 'PAPER')) {
+      computerScore++;
+      }
+
+      else if ((playerSelection === 'PAPER') && (computerSelection === 'SCISSORS')) {
+        computerScore++;
+      }
+
+      else if ((playerSelection === 'SCISSORS') && (computerSelection === 'ROCK')) {
+        computerScore++;
+      }
+      else if ((playerSelection == 'PAPER') && (computerSelection == 'PAPER')) {
+        console.log("NO WINNERS HERE!");
+      }
+  return "Player score " + playerScore + "\n" + "Computer score " + computerScore;
+}
+  console.log("Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection);
+  console.log(gameRules());
+}
+
+game();
+
+
+
+
+</script>
