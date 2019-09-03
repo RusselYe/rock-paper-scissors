@@ -1,5 +1,6 @@
 <script>
 
+// Math.random() determines computer choice
 function computerPlay() {
   let x = Math.random();
 
@@ -16,17 +17,23 @@ function computerPlay() {
   }
 }
 
+// Set starting scores to 0
 let playerScore = 0;
 let computerScore = 0;
 
 
-
 function game() {
-  let playerSelection = prompt("Enter your selection").toUpperCase();
+  let playerSelection = prompt("Enter your selection - Rock, Paper or Scissors!").toUpperCase();
   let computerSelection = computerPlay();
 
+  // Make sure the player selection is correct
+  if (!(playerSelection === 'ROCK' || playerSelection === 'PAPER' || playerSelection === 'SCISSORS')) { 
+    return 'ERROR';
+  }
 
   function gameRules() {    
+
+    // Computer scoring
     if ((playerSelection === 'ROCK') && (computerSelection === 'PAPER')) {
       computerScore++;
       }
@@ -38,16 +45,26 @@ function game() {
       else if ((playerSelection === 'SCISSORS') && (computerSelection === 'ROCK')) {
         computerScore++;
       }
-      else if ((playerSelection == 'PAPER') && (computerSelection == 'PAPER')) {
+
+      // If both playerSelection and computerSelection is the same
+      else if ((playerSelection === 'PAPER') && (computerSelection === 'PAPER')) {
         console.log("NO WINNERS HERE!");
       }
+      else if ((playerSelection === 'ROCK') && (computerSelection === 'ROCK')) {
+        console.log("NO WINNERS HERE!");
+      }
+      else if ((playerSelection === 'SCISSORS') && (computerSelection === 'SCISSORS')) {
+        console.log("NO WINNERS HERE!");
+      }
+      else {
+        playerScore++; // otherwise increment the playerScore by 1
+      }
+
   return "Player score " + playerScore + "\n" + "Computer score " + computerScore;
 }
   console.log("Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection);
   console.log(gameRules());
 }
-
-game();
 
 
 
