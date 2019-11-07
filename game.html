@@ -1,6 +1,6 @@
 <script>
   // Math.random() determines computer choice
-  function computerPlay() {
+function computerPlay() {
     let x = Math.random();
 
     if (x <= 0.33) {
@@ -14,10 +14,10 @@
     }
   }
 
-  // Set starting scores to 0
+  // Set starting scores to 0 and gameRound to 1
   let playerScore = 0;
   let computerScore = 0;
-
+  let gameRound = 1;
 
   function game() {
     let playerSelection = prompt("Enter your selection - Rock, Paper or Scissors!").toUpperCase();
@@ -57,7 +57,58 @@
 
       return "Player score " + playerScore + "\n" + "Computer score " + computerScore;
     }
-    console.log("Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection);
-    console.log(gameRules());
+  console.log("Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection);
+  console.log(gameRules());
   }
+
+
+  // Keep playing until someone reaches a score of 5
+  function playGame() {
+  while(playerScore < 5 && computerScore < 5) {
+    game();
+
+    if (playerScore === 5) {
+    console.log("Congratulations! You win");
+  }
+
+  else if (computerScore === 5) {
+    console.log("You lost to the computer, FeelsBadMan");
+  }
+}
+
+let userChoice = prompt("Would you like to play again? 1 = Yes");
+while (userChoice === "1") {
+  gameRound++;
+  
+  if (userChoice === "1") {
+    playerScore = 0;
+    computerScore = 0;
+    console.log("Game No. " + gameRound);
+    playGame();
+  }
+
+  else {
+    console.log("Thanks for playing! :)");
+  }
+}
+  }
+
+  //Call playGame function
+  playGame();
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  console.log(playerScore);
+  console.log(computerScore);
+
 </script>
