@@ -1,116 +1,99 @@
 <script>
   // Math.random() determines computer choice
-function computerPlay() {
+  function computerPlay() {
     let x = Math.random();
 
     if (x <= 0.33) {
       return "Rock".toUpperCase();
-    } 
-    else if (x <= 0.66 && x > 0.33) {
+    } else if ((x <= 0.66) && (x > 0.33)) {
       return "Paper".toUpperCase();
-    } 
-    else {
+    } else {
       return "Scissors".toUpperCase();
     }
   }
 
-  // Set starting scores to 0 and gameRound to 1
-  let playerScore = 0;
-  let computerScore = 0;
-  let gameRound = 1;
- 
-
-  function initializeGame() {
+  function getSelection() {
+    const validSelection = ['ROCK', 'PAPER', 'SCISSORS'];
     let playerSelection = prompt("Enter your selection - Rock, Paper or Scissors!").toUpperCase();
-    let computerSelection = computerPlay();
-
-    // Make sure the player selection is correct
-    if (!(playerSelection === 'ROCK' || playerSelection === 'PAPER' || playerSelection === 'SCISSORS')) {
-      return 'ERROR';
+    const computerSelection = computerPlay();
+    while (!validSelection.includes(playerSelection)) {
+      alert("Please enter a valid answer!");
+      playerSelection = prompt("Enter your selection - Rock, Paper or Scissors!").toUpperCase();
     }
 
-    function controlGame() {
+    console.log("Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection);
+    return [playerSelection, computerSelection];
+  }
 
-      // Computer scoring
-      if ((playerSelection === 'ROCK') && (computerSelection === 'PAPER')) {
-        computerScore++;
-      } 
-      else if ((playerSelection === 'PAPER') && (computerSelection === 'SCISSORS')) {
-        computerScore++;
-      } 
-      else if ((playerSelection === 'SCISSORS') && (computerSelection === 'ROCK')) {
-        computerScore++;
-      }
-
-      // If both playerSelection and computerSelection is the same
-      else if ((playerSelection === 'PAPER') && (computerSelection === 'PAPER')) {
-        console.log("NO WINNERS HERE!");
-      } 
-      else if ((playerSelection === 'ROCK') && (computerSelection === 'ROCK')) {
-        console.log("NO WINNERS HERE!");
-      } 
-      else if ((playerSelection === 'SCISSORS') && (computerSelection === 'SCISSORS')) {
-        console.log("NO WINNERS HERE!");
-      } 
-      else {
-        playerScore++; // otherwise increment the playerScore by 1
-      }
-
-      return "Player score " + playerScore + "\n" + "Computer score " + computerScore;
+  function getScore(playerSelection, computerSelection, playerScore, computerScore) {
+    // Computer scoring
+    if ((playerSelection === 'ROCK') && (computerSelection === 'PAPER')) {
+      computerScore++;
+    } else if ((playerSelection === 'PAPER') && (computerSelection === 'SCISSORS')) {
+      computerScore++;
+    } else if ((playerSelection === 'SCISSORS') && (computerSelection === 'ROCK')) {
+      computerScore++;
     }
-  console.log("Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection);
-  console.log(controlGame());
+
+    // If both playerSelection and computerSelection is the same
+    else if ((playerSelection === 'PAPER') && (computerSelection === 'PAPER')) {
+      console.log("NO WINNERS HERE!");
+    } else if ((playerSelection === 'ROCK') && (computerSelection === 'ROCK')) {
+      console.log("NO WINNERS HERE!");
+    } else if ((playerSelection === 'SCISSORS') && (computerSelection === 'SCISSORS')) {
+      console.log("NO WINNERS HERE!");
+    } else {
+      playerScore++; // otherwise increment the playerScore by 1
+    }
+
+    return [playerScore, computerScore];
+  }
+
+  function displayScore(playerScore, computerScore) {
+    console.log(`Player score: ${playerScore}\nComputer score: ${computerScore}`);
   }
 
 
   // Keep playing until someone reaches a score of 5
   function playGame() {
-  while(playerScore < 5 && computerScore < 5) {
-    initializeGame();
-
-    if (playerScore === 5) {
-    console.log("Congratulations! You win");
+    let playerScore = 0;
+    let computerScore = 0;
+    while ((playerScore < 5) && (computerScore < 5)) {
+      selection = getSelection();
+      let playerSelection = selection[0];
+      let computerSelection = selection[1];
+      let score = getScore(playerSelection, computerSelection, playerScore, computerScore);
+      playerScore = score[0];
+      computerScore = score[1];
+      displayScore(playerScore, computerScore);
+      if (playerScore === 5) {
+        console.log("Congratulations! You win");
+        playAgain(playerScore, computerScore, gameRound);
+      } else if (computerScore === 5) {
+        console.log("You lost to the computer, FeelsBadMan");
+        playAgain(playerScore, computerScore, gameRound);
+      }
+    }
   }
 
-  else if (computerScore === 5) {
-    console.log("You lost to the computer, FeelsBadMan");
-  }
-}
+  function playAgain(playerScore, computerScore, gameRound) {
+    if ((playerScore === 5) || (computerScore === 5)) {
+      let userChoice = prompt("Would you like to play again? 1 = Yes");
+      while (userChoice === "1") {
+        gameRound++;
 
-let userChoice = prompt("Would you like to play again? 1 = Yes");
-while (userChoice === "1") {
-  gameRound++;
-  
-  if (userChoice === "1") {
-    playerScore = 0;
-    computerScore = 0;
-    console.log("======================");
-    console.log("Game No. " + gameRound);
-    playGame();
+        if (userChoice === "1") {
+          console.log("======================");
+          console.log("Game No. " + gameRound);
+          playGame();
+        } else {
+          console.log("Thanks for playing! :)");
+        }
+      }
+    }
   }
 
-  else {
-    console.log("Thanks for playing! :)");
-  }
-}
-  }
 
   //Call playGame function
   playGame();
-
-
-
-
-
-
-  
-
-
-  
-
-
-
-  console.log(playerScore);
-  console.log(computerScore);
-
 </script>
