@@ -1,15 +1,8 @@
 <script>
   // Math.random() determines computer choice
   function computerPlay() {
-    let x = Math.random();
-
-    if (x <= 0.33) {
-      return "Rock".toUpperCase();
-    } else if ((x <= 0.66) && (x > 0.33)) {
-      return "Paper".toUpperCase();
-    } else {
-      return "Scissors".toUpperCase();
-    }
+    const validSelection = ['ROCK', 'PAPER', 'SCISSORS'];
+    return validSelection[Math.floor(Math.random()*validSelection.length)];
   }
 
   function getSelection() {
