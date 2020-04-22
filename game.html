@@ -2,7 +2,7 @@
   // Math.random() determines computer choice
   function computerPlay() {
     const validSelection = ['ROCK', 'PAPER', 'SCISSORS'];
-    return validSelection[Math.floor(Math.random()*validSelection.length)];
+    return validSelection[Math.floor(Math.random() * validSelection.length)];
   }
 
   function getSelection() {
@@ -46,46 +46,35 @@
     console.log(`Player score: ${playerScore}\nComputer score: ${computerScore}`);
   }
 
+  function playAgain() {
+    let choice = prompt("Do you want to play again? y/n");
+    return choice;
+  }
+
 
   // Keep playing until someone reaches a score of 5
   function playGame() {
-    let playerScore = 0;
-    let computerScore = 0;
-    while ((playerScore < 5) && (computerScore < 5)) {
-      selection = getSelection();
-      let playerSelection = selection[0];
-      let computerSelection = selection[1];
-      let score = getScore(playerSelection, computerSelection, playerScore, computerScore);
-      playerScore = score[0];
-      computerScore = score[1];
-      displayScore(playerScore, computerScore);
-      if (playerScore === 5) {
-        console.log("Congratulations! You win");
-        playAgain(playerScore, computerScore, gameRound);
-      } else if (computerScore === 5) {
-        console.log("You lost to the computer, FeelsBadMan");
-        playAgain(playerScore, computerScore, gameRound);
-      }
-    }
-  }
+    do {
+      let playerScore = 0;
+      let computerScore = 0;
+      while ((playerScore < 5) && (computerScore < 5)) {
+        let selection = getSelection();
+        let playerSelection = selection[0];
+        let computerSelection = selection[1];
+        let score = getScore(playerSelection, computerSelection, playerScore, computerScore);
+        playerScore = score[0];
+        computerScore = score[1];
+        displayScore(playerScore, computerScore);
+        if (playerScore === 5) {
+          console.log("Congratulations! You win");
 
-  function playAgain(playerScore, computerScore, gameRound) {
-    if ((playerScore === 5) || (computerScore === 5)) {
-      let userChoice = prompt("Would you like to play again? 1 = Yes");
-      while (userChoice === "1") {
-        gameRound++;
-
-        if (userChoice === "1") {
-          console.log("======================");
-          console.log("Game No. " + gameRound);
-          playGame();
-        } else {
-          console.log("Thanks for playing! :)");
+        } else if (computerScore === 5) {
+          console.log("You lost to the computer, FeelsBadMan");
         }
       }
-    }
-  }
 
+    } while (playAgain() == 'y'.toUpperCase());
+  }
 
   //Call playGame function
   playGame();
