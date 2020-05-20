@@ -5,23 +5,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock Paper Scissors</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </head>
 
 <body>
-  <div id = "player">
-    
+  <h1 class="center-align"> Rock Paper Scissors</h1>
+
+  <div class="row center-align">
+
+
+    <div class="col s6" id="playerScore">Player Score: 0</div>
+    <div class="col s6" id="computerScore">Computer Score: 0</div>
   </div>
 
-  <div id ="buttons">
-  <button onclick="playGame('ROCK')">Rock</button>
-  <button onclick="playGame('PAPER')">Paper</button>
-  <button onclick="playGame('SCISSORS')">Scissors</button>
-</div>
+  <div id="buttons" class="center-align">
+    <a class="waves-effect waves-light btn" onclick="playGame('ROCK')">Rock</a>
+    <a class="waves-effect waves-light btn" onclick="playGame('PAPER')">Paper</a>
+    <a class="waves-effect waves-light btn" onclick="playGame('SCISSORS')">Scissors</a>
+  </div>
 
-  <div id="results">
-
-
+  <div id="results" class="center-align">
   </div>
 
   <script>
@@ -39,7 +46,7 @@
       const validSelection = ['ROCK', 'PAPER', 'SCISSORS'];
       const computerSelection = computerPlay();
       const selection = document.createElement('div');
-      selection.setAttribute("id","selection");
+      selection.setAttribute("id", "selection");
       selection.textContent = "Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection;
       result.appendChild(selection);
       return [playerSelection, computerSelection];
@@ -76,11 +83,14 @@
     }
 
     function displayScore(playerScore, computerScore) {
-      const score = document.createElement('div');
-      score.setAttribute("id", "score");
-      score.textContent = `Player score: ${playerScore} Computer score: ${computerScore}`;
-      result.appendChild(score);
-    
+      const scorePlayer = document.querySelector("#playerScore");
+      const scoreComputer = document.querySelector("#computerScore");
+      
+      scorePlayer.textContent = `Player Score: ${playerScore}`;
+      scoreComputer.textContent = `Computer Score: ${computerScore}`;
+
+      
+
     }
 
     function playAgain() {
@@ -90,7 +100,7 @@
 
     function checkScore() {
       const announce = document.createElement('div');
-      
+
       if (playerScore == 5) {
         announce.textContent = "Congratulations! You win"
         result.appendChild(announce);
