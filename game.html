@@ -12,120 +12,50 @@
 
 </head>
 
-<body>
-  <h1 class="center-align"> Rock Paper Scissors</h1>
+<body class="grey darken-4">
+  <div class="container">
+    <h1 class="center-align white-text">Rock Paper Scissors</h1>
 
-  <div class="row center-align">
+    <div class="container center-align">
+      <div class="row">
+        <div class="card col l12 s12 teal accent-2">
+          <span class="card-title"><b>You</b></span>
+          <div class="card-content">
+            <div id="playerChoice">Player chose: </div>
+            <div id="playerScore">Player score: 0</div>
+          </div>
+        </div>
+
+        <div class="card col l12 s12 cyan accent-2">
+          <span class="card-title"><b>Computer</b></span>
+          <div class="card-content">
+            <div id="computerChoice">Comptuer chose: </div>
+            <div id="computerScore">Computer score: 0</div>
+          </div>
+        </div>
 
 
-    <div class="col s6" id="playerScore">Player Score: 0</div>
-    <div class="col s6" id="computerScore">Computer Score: 0</div>
+        <div class="col l12 s12">
+          <div id="buttons">
+            <a class="waves-effect waves-light btn-large tooltipped" data-position="bottom"
+           data-tooltip="Rock" style="font-size: 35px;" onclick="playGame('ROCK')"> ✊</a>
+            <a class="waves-effect waves-light btn-large tooltipped" data-position="bottom"
+            data-tooltip="Paper" style="font-size: 35px;" onclick="playGame('PAPER')">✋</a>
+            <a class="waves-effect waves-light btn-large tooltipped" data-position="bottom"
+            data-tooltip="Scissors" style="font-size: 35px;" onclick="playGame('SCISSORS')">✌</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
-  <div id="buttons" class="center-align">
-    <a class="waves-effect waves-light btn" onclick="playGame('ROCK')">Rock</a>
-    <a class="waves-effect waves-light btn" onclick="playGame('PAPER')">Paper</a>
-    <a class="waves-effect waves-light btn" onclick="playGame('SCISSORS')">Scissors</a>
+
+  <div id="results"></div>
   </div>
 
-  <div id="results" class="center-align">
   </div>
-
-  <script>
-    let playerScore = 0;
-    let computerScore = 0;
-    const result = document.querySelector("#results");
-
-    // Math.random() determines computer choice
-    function computerPlay() {
-      const validSelection = ['ROCK', 'PAPER', 'SCISSORS'];
-      return validSelection[Math.floor(Math.random() * validSelection.length)];
-    }
-
-    function getSelection(playerSelection) {
-      const validSelection = ['ROCK', 'PAPER', 'SCISSORS'];
-      const computerSelection = computerPlay();
-      const selection = document.createElement('div');
-      selection.setAttribute("id", "selection");
-      selection.textContent = "Player chose: " + playerSelection + "\n" + "Computer chose: " + computerSelection;
-      result.appendChild(selection);
-      return [playerSelection, computerSelection];
-    }
-
-    function getScore(playerSelection, computerSelection, playerScore, computerScore) {
-      const draw = document.createElement("div");
-      draw.setAttribute("id", "draw");
-
-      // Computer scoring
-      if ((playerSelection === 'ROCK') && (computerSelection === 'PAPER')) {
-        computerScore++;
-      } else if ((playerSelection === 'PAPER') && (computerSelection === 'SCISSORS')) {
-        computerScore++;
-      } else if ((playerSelection === 'SCISSORS') && (computerSelection === 'ROCK')) {
-        computerScore++;
-      }
-
-      // If both playerSelection and computerSelection is the same
-      else if ((playerSelection === 'PAPER') && (computerSelection === 'PAPER')) {
-        draw.textContent = "Draw";
-        result.appendChild(draw);
-      } else if ((playerSelection === 'ROCK') && (computerSelection === 'ROCK')) {
-        draw.textContent = "Draw";
-        result.appendChild(draw);
-      } else if ((playerSelection === 'SCISSORS') && (computerSelection === 'SCISSORS')) {
-        draw.textContent = "Draw";
-        result.appendChild(draw);
-      } else {
-        playerScore++; // otherwise increment the playerScore by 1
-      }
-
-      return [playerScore, computerScore];
-    }
-
-    function displayScore(playerScore, computerScore) {
-      const scorePlayer = document.querySelector("#playerScore");
-      const scoreComputer = document.querySelector("#computerScore");
-      
-      scorePlayer.textContent = `Player Score: ${playerScore}`;
-      scoreComputer.textContent = `Computer Score: ${computerScore}`;
-
-      
-
-    }
-
-    function playAgain() {
-      let choice = prompt("Do you want to play again? y/n");
-      return choice;
-    }
-
-    function checkScore() {
-      const announce = document.createElement('div');
-
-      if (playerScore == 5) {
-        announce.textContent = "Congratulations! You win"
-        result.appendChild(announce);
-        playerScore = 0;
-        computerScore = 0;
-      } else if (computerScore == 5) {
-        announce.textContent = "You lost to the computer, FeelsBadMan"
-        result.appendChild(announce);
-        playerScore = 0;
-        computerScore = 0;
-      }
-    }
-
-    // Keep playing until someone reaches a score of 5
-    function playGame(playerSelection) {
-
-      let selection = getSelection(playerSelection);
-      let computerSelection = selection[1];
-      let score = getScore(playerSelection, computerSelection, playerScore, computerScore);
-      playerScore = score[0];
-      computerScore = score[1];
-      displayScore(playerScore, computerScore);
-      checkScore();
-    }
-  </script>
+  <script src="./js/script.js"></script>
 </body>
 
 </html>
